@@ -1,4 +1,4 @@
---------------------------------------------------------------------------------------------vector.c------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------vector.c------------------------------------------------------------------------------------------------
 
 typedef struct {
 	size_t capacity; - границы.
@@ -16,8 +16,8 @@ void* erase_vector(Vector *vector, int index) - удалить элемент и
 void* pop_back_vector(Vector *vector) - удалить последний элемент.
 void* get_elem_vector(Vector *vector, int index) - получить элемент по индексу.
 void* set_elem_vector(Vector *vector, int index, const void* new_elem) - изменить элемент по индексу.
-void* get_capacity_vector(Vector *vector) - геттер capacity.
-void* get_size_vector(Vector *vector) - геттер size.
-void* get_elem_size_vector(Vector *vector) - геттер elem_size.
+size_t get_capacity_vector(Vector *vector) - геттер capacity.
+size_t get_size_vector(Vector *vector) - геттер size.
+size_t get_elem_size_vector(Vector *vector) - геттер elem_size.
 int empty_vector(Vector *vector) - возвращает 1 если size = 0, 0 если size != 0.
-uint8_t* get_last_elem_vector(Vector *vector) - возвращает последний элемент vector.
+void* get_last_elem_vector(Vector *vector) - возвращает последний элемент vector.
