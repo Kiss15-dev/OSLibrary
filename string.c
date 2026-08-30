@@ -136,7 +136,3 @@ int strncmp(char *str1, char *str2, size_t n) {
 	if (*s1 > *s2) return 1;
 	return 0;
 }
-
-void main() {
-
-}

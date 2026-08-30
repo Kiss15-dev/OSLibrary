@@ -125,7 +125,3 @@ int empty_vector(Vector *vector) {
 uint8_t* get_last_elem_vector(Vector *vector) {
 	return (uint8_t*)vector->ptr + vector->size * vector->elem_size;
 }
-
-void main() {
-
-}
