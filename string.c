@@ -50,7 +50,7 @@ size_t my_strlen(char* str) {
 
 	while(*s++ != '\0') {
 		i++;
-	}
+	}	
 
 	return i;
 }

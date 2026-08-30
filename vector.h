@@ -1,0 +1,26 @@
+#ifndef VECTOR_H
+#define VECTOR_H
+
+typedef struct {
+	size_t capacity;
+	size_t size;
+	size_t elem_size;
+	void *ptr;
+} Vector;
+
+void init_vector(Vector *vector, size_t elem_size);
+void free_vector(Vector *vector);
+void shrink_to_fit_vector(Vector *vector);
+void* push_back_vector(Vector *vector, const void *elem);
+void* insert_vector(Vector *vector, int index, const void* elem);
+void* erase_vector(Vector *vector, int index);
+void* pop_back_vector(Vector *vector);
+void* get_elem_vector_vector( Vector *vector, int index);
+void* set_elem_vector(Vector *vector, int index, int new_elem);
+void* get_capacity_vector(Vector *vector);
+void* get_size_vector(Vector *vector);
+void* get_elem_size_vector( Vector *vector);
+int empty_vector(Vector *vector);
+uint8_t* get_last_elem_vector(Vector *vector);
+
+#endif
