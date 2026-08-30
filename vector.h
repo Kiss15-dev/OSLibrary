@@ -17,10 +17,10 @@ void* erase_vector(Vector *vector, int index);
 void* pop_back_vector(Vector *vector);
 void* get_elem_vector_vector( Vector *vector, int index);
 void* set_elem_vector(Vector *vector, int index, int new_elem);
-void* get_capacity_vector(Vector *vector);
-void* get_size_vector(Vector *vector);
-void* get_elem_size_vector( Vector *vector);
+size_t get_capacity_vector(Vector *vector);
+size_t get_size_vector(Vector *vector);
+size_t get_elem_size_vector( Vector *vector);
 int empty_vector(Vector *vector);
-uint8_t* get_last_elem_vector(Vector *vector);
+void* get_last_elem_vector(Vector *vector);
 
 #endif

@@ -97,7 +97,7 @@ void* get_elem_vector(Vector *vector, int index) {
 	return NULL;
 }
 
-void* set_elem_vector(Vector *vector, int index, int new_elem) {
+void* set_elem_vector(Vector *vector, int index, const void* new_elem) {
 	if (index < vector->size && index > -1) {
 		memcpy((uint8_t*)vector->ptr + index * vector->elem_size, new_elem, vector->elem_size);
 	}
@@ -105,16 +105,16 @@ void* set_elem_vector(Vector *vector, int index, int new_elem) {
 	return NULL;
 }
 
-void* get_capacity_vector(Vector *vector) {
-	return vector->capacity;
+size_t get_capacity_vector(Vector *vector) {
+	return *vector->capacity;
 }
 
-void* get_size_vector(Vector *vector) {
-	return vector->size;
+size_t get_size_vector(Vector *vector) {
+	return *vector->size;
 }
 
-void* get_elem_size_vector(Vector *vector) {
-	return vector->elem_size;
+size_t get_elem_size_vector(Vector *vector) {
+	return *vector->elem_size;
 } 
 
 int empty_vector(Vector *vector) {
@@ -122,6 +122,6 @@ int empty_vector(Vector *vector) {
 	return 0;
 }
 
-uint8_t* get_last_elem_vector(Vector *vector) {
+void* get_last_elem_vector(Vector *vector) {
 	return (uint8_t*)vector->ptr + vector->size * vector->elem_size;
 }
