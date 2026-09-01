@@ -100,7 +100,7 @@ void str_upper(char* str) {
 }
 
 void* str_terminate(struct Vector *vector) {
-	if (get_size_vector(vector) == 1) {
+	if (get_elem_size_vector(vector) == 1) {
 		if (get_last_elem_vector(vector) != '\0') {
 			push_back_vector(vector, '\0');
 		}
@@ -135,4 +135,18 @@ int strncmp(char *str1, char *str2, size_t n) {
 	if (*s1 < *s2) return -1;
 	if (*s1 > *s2) return 1;
 	return 0;
+}
+
+void* str_create(Vector* vector, char* str, size_t length) {
+	if (get_elem_size_vector(vector) == 1) {
+		for (int i = 0; i < length; i++) {
+			push_back_vector(vector, str[i]);
+		}
+
+		str_terminate(vector);
+
+		return vector;
+	} 
+
+	return NULL;
 }
