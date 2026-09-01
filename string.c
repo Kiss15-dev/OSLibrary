@@ -1,6 +1,6 @@
 #include <stddef.h>
 #include <stdint.h>
-#include <vector.h>
+#include "vector.h"
 
 void *my_memcpy(void *dest, const void *scr, size_t n) {
 	uint8_t *d = (uint8_t*)dest;
@@ -55,12 +55,12 @@ size_t my_strlen(char* str) {
 	return i;
 }
 
-void* str_concat(struct Vector *vector, char* str) {
+void* str_concat(Vector *vector, char* str) {
 	if (get_size_vector(vector) == 1) {
 		char *s = str;
 
 		while (*s != '\0') {
-			push_back_vector(vector, *s);
+			push_back_vector(vector, s);
 			s++;
 		}
 
@@ -96,10 +96,11 @@ void str_upper(char* str) {
 	}
 }
 
-void* str_terminate(struct Vector *vector) {
+void* str_terminate(Vector *vector) {
 	if (get_elem_size_vector(vector) == 1) {
-		if (get_last_elem_vector(vector) != '\0') {
-			push_back_vector(vector, '\0');
+		if (*(char*)get_last_elem_vector(vector) != '\0') {
+			char null_char = '\0';
+			push_back_vector(vector, &null_char);
 		}
 	}
 
@@ -139,7 +140,7 @@ void* str_create_vector(Vector* vector, char* str) {
 
 	if (get_elem_size_vector(vector) == 1) {
 		for (int i = 0; i < length; i++) {
-			push_back_vector(vector, str[i]);
+			push_back_vector(vector, &str[i]);
 		}
 
 		str_terminate(vector);

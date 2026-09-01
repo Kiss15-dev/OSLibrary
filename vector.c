@@ -1,13 +1,7 @@
 #include <stdlib.h>
-#include <string.h>
-#include <vector.h>
-
-typedef struct {
-	size_t capacity;
-	size_t size;
-	size_t elem_size;
-	void *ptr;
-} Vector;
+#include <stdint.h>
+#include "string.h"
+#include "vector.h"
 
 Vector* create_vector(Vector *vector, size_t elem_size) {
 	if (vector != NULL) {
@@ -20,8 +14,8 @@ Vector* create_vector(Vector *vector, size_t elem_size) {
 
 	vector->capacity = 32;
 	vector->size = 0;
-	vector->ptr = malloc(vector->elem_size * vector->capacity);
 	vector->elem_size = elem_size;
+	vector->ptr = malloc(vector->elem_size * vector->capacity);
 
 	return vector;
 }
@@ -38,7 +32,7 @@ void free_vector(Vector *vector) {
 	}
 }
 
-static void reserve_vector(Vector *vector, int new_capacity) {
+static void reserve_vector(Vector *vector, size_t new_capacity) {
 	if (vector != NULL) {
 		void *buff_ptr = realloc(vector->ptr, new_capacity);
 
@@ -70,7 +64,7 @@ void* push_back_vector(Vector *vector, const void *elem) {
 			}
 
 			vector->size++;
-			memcpy((uint8_t*)vector->ptr + (vector->size * vector->elem_size), elem, vector->elem_size);
+			my_memcpy((uint8_t*)vector->ptr + (vector->size * vector->elem_size), elem, vector->elem_size);
 		}
 	}
 
@@ -87,11 +81,11 @@ void* insert_vector(Vector *vector, int index, const void* elem) {
 			vector->size++;
 
 			for (int i = 0; i < vector->size - index - 1; i++) {
-				memcpy((uint8_t*)vector->ptr + vector->elem_size * (vector->size - 1 - i), (uint8_t*)vector->ptr + vector->elem_size * (vector->size - 2 - i), vector->elem_size);
+				my_memcpy((uint8_t*)vector->ptr + vector->elem_size * (vector->size - 1 - i), (uint8_t*)vector->ptr + vector->elem_size * (vector->size - 2 - i), vector->elem_size);
 			}
 
-			memcpy((uint8_t*)vector->ptr + index * vector->elem_size, elem, vector->elem_size);
-			return;
+			my_memcpy((uint8_t*)vector->ptr + index * vector->elem_size, elem, vector->elem_size);
+			return vector;
 		}
 	}
 
@@ -102,11 +96,11 @@ void* erase_vector(Vector *vector, int index) {
 	if (vector != NULL) {
 		if (index < vector->size && index > -1) {
 			for (int i = 0; i < vector->size - index - 1; i++) {
-				memcpy((uint8_t*)vector->ptr + vector->elem_size * (index + i), (uint8_t*)vector->ptr + vector->elem_size * (index + 1 + i), vector->elem_size);
+				my_memcpy((uint8_t*)vector->ptr + vector->elem_size * (index + i), (uint8_t*)vector->ptr + vector->elem_size * (index + 1 + i), vector->elem_size);
 			}
 
 			vector->size--;
-			return;
+			return vector;
 		}
 	}
 
@@ -136,23 +130,22 @@ void* get_elem_vector(Vector *vector, int index) {
 void* set_elem_vector(Vector *vector, int index, const void* new_elem) {
 	if (vector != NULL) {
 		if (index < vector->size && index > -1) {
-			memcpy((uint8_t*)vector->ptr + index * vector->elem_size, new_elem, vector->elem_size);
+			my_memcpy((uint8_t*)vector->ptr + index * vector->elem_size, new_elem, vector->elem_size);
 		}
 	}
-
-	return NULL;
+	return NULL;	
 }
 
 size_t get_capacity_vector(Vector *vector) {
-	if (vector != NULL) return *vector->capacity;
+	if (vector != NULL) return vector->capacity;
 }
 
 size_t get_size_vector(Vector *vector) {
-	if (vector != NULL) return *vector->size;
+	if (vector != NULL) return vector->size;
 }
 
 size_t get_elem_size_vector(Vector *vector) {
-	if (vector != NULL) return *vector->elem_size;
+	if (vector != NULL) return vector->elem_size;
 } 
 
 int empty_vector(Vector *vector) {
@@ -165,5 +158,5 @@ int empty_vector(Vector *vector) {
 }
 
 void* get_last_elem_vector(Vector *vector) {
-	if (vector != NULL) return (uint8_t*)vector->ptr + vector->size * vector->elem_size;
+	if (vector != NULL && vector->size > 0) return (uint8_t*)vector->ptr + (vector->size - 1) * vector->elem_size;
 }
