@@ -55,21 +55,18 @@ size_t my_strlen(char* str) {
 	return i;
 }
 
-void* str_append(struct Vector *vector, char* str) {
+void* str_concat(struct Vector *vector, char* str) {
 	if (get_size_vector(vector) == 1) {
 		char *s = str;
-		size_t length = my_strlen(str);
 
-		if (length + 1 == '\0') {
-			while (*s != '\0') {
-				push_back_vector(vector, *s);
-				s++;
-			}
-
-			push_back_vector(vector, '\0');
-
-			return;
+		while (*s != '\0') {
+			push_back_vector(vector, *s);
+			s++;
 		}
+
+		push_back_vector(vector, '\0');
+
+		return vector;
 	}
 
 	return NULL;
@@ -137,7 +134,9 @@ int strncmp(char *str1, char *str2, size_t n) {
 	return 0;
 }
 
-void* str_create(Vector* vector, char* str, size_t length) {
+void* str_create_vector(Vector* vector, char* str) {
+	size_t length = my_strlen(str);
+
 	if (get_elem_size_vector(vector) == 1) {
 		for (int i = 0; i < length; i++) {
 			push_back_vector(vector, str[i]);
